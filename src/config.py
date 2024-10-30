@@ -14,22 +14,22 @@ class APIUrlsSettings(BaseSettings):
 
 # Database Settings
 class DatabaseSettings(BaseSettings):
-    DB_USER: str
-    DB_PASSWORD: str
-    DB_HOST: str
-    DB_PORT: int
-    DB_NAME: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: int
+    POSTGRES_NAME: str
 
     @property
     def url(self) -> str:
-        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_NAME}"
 
     class Config:
         env_file = "../.env"
 
 
-class KafkaSettings(BaseSettings):
-    bootstrap_servers: str = "localhost:9092"
+# class KafkaSettings(BaseSettings):
+#     bootstrap_servers: str = "localhost:9092"
 
 
 # Logging Settings
@@ -68,8 +68,8 @@ class AuthenticationSettings(BaseSettings):
     scheme: str = "Bearer"
 
 class Settings(BaseSettings):
-    debug: bool = True
-    version: str = "0.0.1"
+    DEBUG: bool
+    VERSION: str
 
     # Project file system
     root_dir: Path
@@ -81,6 +81,9 @@ class Settings(BaseSettings):
     # Application configuration
     logging: LoggingSettings = LoggingSettings()
     authentication: AuthenticationSettings = AuthenticationSettings()
+
+    class Config:
+        env_file = "../.env"
 
 
 ROOT_PATH = Path(__file__).parent.parent
