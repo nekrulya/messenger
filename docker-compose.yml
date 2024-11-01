@@ -1,12 +1,12 @@
 services:
   postgresql:
     image: postgres:latest
-    container_name: postgres_db
+    container_name: postgresql
     env_file: .env
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
+      - ./pgdata:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "5432:5432"
     networks:
       - app_network
 

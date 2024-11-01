@@ -8,4 +8,4 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 
 @router.get("/")
 async def chats(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {"hello": "world"}
+    pass
